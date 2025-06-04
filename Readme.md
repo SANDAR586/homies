@@ -17,8 +17,7 @@ A lightweight Android chat application built from scratch using **Wi-Fi Direct**
 
 ## 📷 Screenshots
 
-> ![Home Screen](https://raw.githubusercontent.com/SANDAR586/homies/main/home.png)
-
+<img src="https://raw.githubusercontent.com/SANDAR586/homies/main/home.png" alt="Home Screen"  height="400"/>
 
 ---
 
