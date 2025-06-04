@@ -46,32 +46,4 @@ This project shows:
 
 1. Clone this repo:
    ```bash
-   git clone https://github.com/your-username/wifidirect-chat.git
-
-
-
-
-### Folder Architecture 
-/app
-├── /data
-│     ├── /model          # Data models (e.g., PeerDevice, VideoFrame, ConnectionState)
-│     ├── /repository     # Data sources, Wi-Fi Direct and socket communication logic
-│     └── /network        # Socket server/client, Wi-Fi Direct low-level APIs
-│
-├── /domain
-│     ├── /usecase        # Business logic (e.g., DiscoverPeersUseCase, ConnectToDeviceUseCase)
-│     └── /model          # Domain-level models (can mirror data models or be more abstract)
-│
-├── /ui
-│     ├── /host           # Host screen (server) Compose UI + MVI components
-│     ├── /client         # Client screen (finder) Compose UI + MVI components
-│     ├── /common         # Shared UI components, themes, styles
-│     └── /navigation     # Navigation graph, routing logic
-      └── /receivers      # actions listeners and receivers
-│
-├── /util                # Utility classes and helpers (e.g., extension functions, logging)
-│
-├── /di                  # Dependency Injection (e.g., Koin modules)
-│
-└── /service             # Background services if needed (e.g., socket communication running in background)
-
+   https://github.com/SANDAR586/homies.git
