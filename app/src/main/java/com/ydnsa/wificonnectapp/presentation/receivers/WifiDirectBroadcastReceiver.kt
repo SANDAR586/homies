@@ -10,6 +10,7 @@ import android.net.wifi.p2p.WifiP2pManager
 import android.util.Log
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
+import com.ydnsa.wificonnectapp.data.network.AppState
 
 class WifiDirectBroadcastReceiver(
     private val manager: WifiP2pManager?,
@@ -25,9 +26,9 @@ class WifiDirectBroadcastReceiver(
         WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION ->{
             val state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE, -1)
             if (state == WifiP2pManager.WIFI_P2P_STATE_ENABLED) {
-                Toast.makeText(context, "Wi-Fi P2P is ON", Toast.LENGTH_SHORT).show()
+                AppState.updateIsActive(true)
             } else {
-                Toast.makeText(context, "Wi-Fi P2P is OFF", Toast.LENGTH_SHORT).show()
+                AppState.updateIsActive(false)
             }
         }
 
@@ -41,13 +42,17 @@ class WifiDirectBroadcastReceiver(
 
             if(networkInfo != null && networkInfo.isConnected){
                 manager?.requestConnectionInfo(channel){info ->
+                    if (info.groupFormed){
+                        AppState.updateGroupFormed(true)
+                    }
 
                     if (info.groupFormed && info.groupOwnerAddress != null) {
                         Log.d("P2P", "Connected to: ${info.groupOwnerAddress.hostAddress}")
+
                         if (info.isGroupOwner) {
-                            Log.d("P2P", "This device is the group owner.")
+                            AppState.updateGroupOwner(true)
                         } else {
-                            Log.d("P2P", "This device is a peer.")
+                            AppState.updateGroupOwner(false)
                         }
                     } else {
                         Log.d("P2P", "Group not formed.")

@@ -19,7 +19,10 @@ import com.ydnsa.wificonnectapp.presentation.receivers.WifiDirectActionListener
 import com.ydnsa.wificonnectapp.presentation.receivers.WifiDirectBroadcastReceiver
 import com.ydnsa.wificonnectapp.ui.theme.WifiConnectAppTheme
 import android.Manifest
-
+import android.content.Intent
+import androidx.core.content.ContextCompat
+import com.ydnsa.wificonnectapp.service.MyWifiScannerService
+import kotlin.jvm.java
 
 class MainActivity : ComponentActivity()
 {
@@ -30,6 +33,8 @@ class MainActivity : ComponentActivity()
         super.onCreate(savedInstanceState)
         requestPermissions()
         enableEdgeToEdge()
+        val intent = Intent(this , MyWifiScannerService::class.java)
+        ContextCompat.startForegroundService(this, intent)
         setContent {
             WifiConnectAppTheme {
                 val navHostController: NavHostController  = rememberNavController()
@@ -41,6 +46,8 @@ class MainActivity : ComponentActivity()
     override fun onResume()
     {
         super.onResume()
+        val intent = Intent(this , MyWifiScannerService::class.java)
+        ContextCompat.startForegroundService(this, intent)
 
         val wifiP2pManager = getSystemService(Context.WIFI_P2P_SERVICE) as WifiP2pManager
        val  channel = wifiP2pManager.initialize(this, mainLooper, null)
@@ -70,10 +77,14 @@ class MainActivity : ComponentActivity()
                 }
 
                 permissions.getOrDefault(Manifest.permission.NEARBY_WIFI_DEVICES,false)->{
+                }
 
+                permissions.getOrDefault(Manifest.permission.FOREGROUND_SERVICE,false)->{
+                }
+                permissions.getOrDefault(Manifest.permission.POST_NOTIFICATIONS, false) -> {
+                    // Notifications permission granted.
                 }
                 else -> {
-
                 }
             }
         }
@@ -84,7 +95,9 @@ class MainActivity : ComponentActivity()
                 arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.NEARBY_WIFI_DEVICES
+                    Manifest.permission.NEARBY_WIFI_DEVICES,
+                    Manifest.permission.FOREGROUND_SERVICE,
+                    Manifest.permission.POST_NOTIFICATIONS
                        )
                                                 )
         }

@@ -19,6 +19,7 @@ class WifiDirectActionListener : WifiP2pManager.ActionListener
             WifiP2pManager.ERROR -> "Internal error"
             else -> "Unknown error code $reason"
         }
+
         Log.e("P2P", "Discovery failed: $reason")
 
     }
